@@ -16,6 +16,7 @@ import Header from "./components/header/header";
 import SearchUtil from "./utils/searchUtil";
 import SearchBox from "./components/searchbox/searchBox";
 import { searchItemInterface } from "./components/searchbox/interface";
+import image from "./loading.webp"
 
 function App() {
   const [allItems, setallItems] = useState<ItemInterface[]>()
@@ -23,7 +24,7 @@ function App() {
   const [completedItems, setCompletedItems] = useState<ItemInterface[]>()
   const [graph, setGraph] = useState<SearchUtil>()
   const [completedCount, setcompletedCount] = useState<number>()
-  const [fetching, setFetching] = useState<boolean>(false)
+  const [fetching, setFetching] = useState<boolean>(true)
 
   useEffect(()=>{
       axios.get<ItemInterface[]>("http://localhost:8000/items").then(
@@ -83,9 +84,10 @@ function App() {
         <SearchBox searchItem={searchItem}/>
         <Container>
           <>
-            {toDoItems && toDoItems.map(item=><Item key={item.id} item={item} changeItemContent={changeItemContent} changeItemStatus={changeItemStatus} deleteItem={deleteItem}/>)}
-            <Header title={`Completed ${completedCount || ''}`}/>
-            {completedItems && completedItems.map(item=><Item key={item.id} item={item} changeItemContent={changeItemContent} changeItemStatus={changeItemStatus} deleteItem={deleteItem}/>)}
+            {fetching && <img src={image}/>}
+            {!fetching && toDoItems && toDoItems.map(item=><Item key={item.id} item={item} changeItemContent={changeItemContent} changeItemStatus={changeItemStatus} deleteItem={deleteItem}/>)}
+            {!fetching && <Header title={`Completed ${completedCount || ''}`}/>}
+            {!fetching && completedItems && completedItems.map(item=><Item key={item.id} item={item} changeItemContent={changeItemContent} changeItemStatus={changeItemStatus} deleteItem={deleteItem}/>)}
           </>
         </Container>
         <AddItem addItem={addItem}/>
