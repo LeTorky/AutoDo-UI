@@ -1,0 +1,10 @@
+.itemHeader{
+    height: 10%;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    box-shadow: 2px 2px 5px rgba(78, 29, 110, 0.503);
+}

@@ -1,0 +1,23 @@
+.searchBox{
+    height: 5%;
+    background-color: #e4e4e4;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    width: 30%
+}
+
+.searchBoxHolder{
+  text-decoration: solid;
+  border: none;
+  outline: none;
+  background: none;
+  width: 100%;
+}
+
+.searchBox:hover{
+    background-color: white;
+    transition-duration: 0.2s;
+    border-bottom: 2px solid black;
+    border-radius: 0px;
+}

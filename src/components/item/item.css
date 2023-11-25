@@ -1,0 +1,91 @@
+.item{
+    height: 15%;
+    background-color: #e4e4e4;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    width: 100%
+  }
+  
+  .item:hover{
+    background-color: white;
+    transition-duration: 0.7s;
+  }
+  
+  .item:active{
+    border: 2px solid black;
+    outline: 2px solid white;
+    transition-duration: 50ms;
+    box-shadow: 3px 3px 3px rgb(111, 23, 131);
+}
+
+.checkBoxNonChecked {
+  border-radius: 999px;
+  background-color: #e4e4e4;
+  height: 10px;
+  width: 10px;
+  margin: 2% 2%;
+  border: 2px solid black;
+}
+
+.checkBoxNonChecked:hover {
+  background-color: black;
+  border: 2px solid #e4e4e4;
+  transition-duration: 0.4s;
+}
+
+.checkBoxChecked {
+  border-radius: 999px;
+  background-color: black;
+  height: 10px;
+  width: 10px;
+  margin: 2% 2%;
+  border: 2px solid #e4e4e4;
+}
+
+.checkBoxChecked:hover {
+  background-color: #e4e4e4;
+  border: 2px solid black;
+  transition-duration: 0.4s;
+}
+
+.itemContentChecked{
+  text-decoration: line-through;
+  border: none;
+  outline: none;
+  background: none;
+  width: 100%;
+}
+
+.itemContentChecked:active{
+  font-size: 86%;
+  transition-duration: 50ms;
+}
+
+.itemContentNonChecked{
+  text-decoration: solid;
+  border: none;
+  outline: none;
+  background: none;
+  width: 100%;
+}
+
+.itemContentNonChecked:active{
+  font-size: 86%;
+  transition-duration: 50ms;
+}
+
+.deleteItem {
+  border-radius: 999px;
+  background-color: black;
+  height: 10px;
+  width: 10px;
+  margin: 2% 2%;
+  border: 2px solid #e4e4e4;
+}
+
+.deleteItem:hover {
+  background-color: rgba(253,29,29,0.5580357142857143);
+  border: 2px solid black;
+  transition-duration: 0.4s;
+}

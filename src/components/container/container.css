@@ -1,0 +1,13 @@
+.container {
+    width: 30%;
+    height: 60%;
+    box-shadow: 2px 2px 5px rgba(131, 58, 180, 0.17);
+    background: rgb(131,58,180);
+    background: linear-gradient(29deg, rgba(131, 58, 180, 0.433) 0%, rgba(253,29,29,0.5580357142857143) 50%, rgba(252, 176, 69, 0.515) 100%);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1%;
+    padding: 2%;
+    border: 10px solid white;
+};
