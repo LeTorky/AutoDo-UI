@@ -13,7 +13,7 @@ import {
   addItemInterface
 } from "./components/button/interface";
 import Header from "./components/header/header";
-import Graph from "./utils/graph";
+import SearchUtil from "./utils/searchUtil";
 import SearchBox from "./components/searchbox/searchBox";
 import { searchItemInterface } from "./components/searchbox/interface";
 
@@ -21,7 +21,7 @@ function App() {
   const [allItems, setallItems] = useState<ItemInterface[]>()
   const [toDoItems, settoDoItems] = useState<ItemInterface[]>()
   const [completedItems, setCompletedItems] = useState<ItemInterface[]>()
-  const [graph, setGraph] = useState<Graph>()
+  const [graph, setGraph] = useState<SearchUtil>()
   const [completedCount, setcompletedCount] = useState<number>()
   const [fetching, setFetching] = useState<boolean>(false)
 
@@ -29,7 +29,7 @@ function App() {
       axios.get<ItemInterface[]>("http://localhost:8000/items").then(
         (response)=>{
           setallItems(response.data)
-          setGraph(new Graph(response.data || [], setCompletedItems, settoDoItems, setcompletedCount))
+          setGraph(new SearchUtil(response.data || [], setCompletedItems, settoDoItems, setcompletedCount))
           setFetching(false);
         }
       )

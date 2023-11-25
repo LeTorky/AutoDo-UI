@@ -4,7 +4,7 @@ interface setters<T>{
     (items: T): void
 }
 
-class Graph{
+class SearchUtil{
     allItems: ItemInterface[] = [];
     completedSetter: setters<ItemInterface[]>
     toDoSetter: setters<ItemInterface[]>
@@ -46,4 +46,4 @@ class Graph{
     }
 }
 
-export default Graph;
+export default SearchUtil;
