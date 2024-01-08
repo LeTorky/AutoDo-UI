@@ -18,6 +18,7 @@ import SearchBox from "./components/searchbox/searchBox";
 import { searchItemInterface } from "./components/searchbox/interface";
 import image from "./loading.webp"
 import Authenticate from "./utils/authenticate";
+import UploadBox from "./components/uploadbox/uploadbox";
 
 function App() {
   const [allItems, setallItems] = useState<ItemInterface[]>()
@@ -98,6 +99,7 @@ function App() {
           </>
         </Container>
         <AddItem addItem={addItem}/>
+        <UploadBox/>
       </>
     );
 }
