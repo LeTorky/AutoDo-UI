@@ -17,6 +17,7 @@ import SearchUtil from "./utils/searchUtil";
 import SearchBox from "./components/searchbox/searchBox";
 import { searchItemInterface } from "./components/searchbox/interface";
 import image from "./loading.webp"
+import Authenticate from "./utils/authenticate";
 
 function App() {
   const [allItems, setallItems] = useState<ItemInterface[]>()
@@ -25,52 +26,58 @@ function App() {
   const [graph, setGraph] = useState<SearchUtil>()
   const [completedCount, setcompletedCount] = useState<number>()
   const [fetching, setFetching] = useState<boolean>(true)
+  Authenticate();
+  const CORE_URL = process.env.REACT_APP_CORE_DOMAIN
 
   useEffect(()=>{
-      axios.get<ItemInterface[]>("http://localhost:8000/items").then(
+      axios.get<ItemInterface[]>(`${CORE_URL}Task`).then(
         (response)=>{
+          console.log(response.data);
           setallItems(response.data)
           setGraph(new SearchUtil(response.data || [], setCompletedItems, settoDoItems, setcompletedCount))
           setFetching(false);
         }
       )
-  }, [fetching])
+  }, [fetching, CORE_URL])
 
-  const changeItemStatus: ChangeItemStatus = useCallback((id: number, status: boolean)=>{
-      axios.patch(`http://localhost:8000/items/${id}`, {
-          status: status
+  const changeItemStatus: ChangeItemStatus = useCallback((id: number, status: boolean, description: string)=>{
+      axios.put(`${CORE_URL}Task`, {
+          status: status,
+          description: description,
+          taskId: id,
       }).then(response=>{
           if(response.status === 200)
             setFetching(true);
       })
-  }, []);
+  }, [CORE_URL]);
 
-  const changeItemContent: ChangeItemContent = useCallback((id: number, content: string)=>{
-        axios.patch(`http://localhost:8000/items/${id}`, {
-            content: content
+  const changeItemContent: ChangeItemContent = useCallback((id: number, status: boolean, description: string)=>{
+        axios.put(`${CORE_URL}Task`, {
+            status: status,
+            description: description,
+            taskId: id,
         }).then((response)=>{
           if(response.status === 200){
             setFetching(true);
           }
         });
-    }, []);
+    }, [CORE_URL]);
 
   const deleteItem: deleteItem = useCallback((id: number)=>{
-        axios.delete(`http://localhost:8000/items/${id}`).then(response=>{
+        axios.delete(`${CORE_URL}Task/${id}`).then(response=>{
             if(response.status === 200)
                 setFetching(true);
         })
-    }, []);
+    }, [CORE_URL]);
 
-    const addItem: addItemInterface = useCallback((content: string)=>{
-      axios.post("http://localhost:8000/items", {
-        content: content,
-        status:false
+    const addItem: addItemInterface = useCallback((description: string)=>{
+      axios.post(`${CORE_URL}Task`, {
+        description: description
       }).then(response=>{
-        if(response.status === 201)
+        if(response.status === 200)
           setFetching(true);
       })
-    },[])
+    },[CORE_URL])
 
     const searchItem: searchItemInterface = useCallback((content: string)=>{
       if(content)
@@ -85,9 +92,9 @@ function App() {
         <Container>
           <>
             {fetching && <img src={image}/>}
-            {!fetching && toDoItems && toDoItems.map(item=><Item key={item.id} item={item} changeItemContent={changeItemContent} changeItemStatus={changeItemStatus} deleteItem={deleteItem}/>)}
+            {!fetching && toDoItems && toDoItems.map(item=><Item key={item.taskId} item={item} changeItemContent={changeItemContent} changeItemStatus={changeItemStatus} deleteItem={deleteItem}/>)}
             {!fetching && <Header title={`Completed ${completedCount || ''}`}/>}
-            {!fetching && completedItems && completedItems.map(item=><Item key={item.id} item={item} changeItemContent={changeItemContent} changeItemStatus={changeItemStatus} deleteItem={deleteItem}/>)}
+            {!fetching && completedItems && completedItems.map(item=><Item key={item.taskId} item={item} changeItemContent={changeItemContent} changeItemStatus={changeItemStatus} deleteItem={deleteItem}/>)}
           </>
         </Container>
         <AddItem addItem={addItem}/>

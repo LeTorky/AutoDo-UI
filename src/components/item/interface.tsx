@@ -1,19 +1,19 @@
 interface ItemInterface{
-    content: string,
+    description: string,
     status: boolean,
-    id: number,
+    taskId: number,
 };
 
 interface ChangeItemStatus{
-    (id: number, status: boolean): void;
+    (taskId: number, status: boolean, description: string): void;
 }
 
 interface deleteItem{
-    (id: number): void;
+    (taskId: number): void;
 }
 
 interface ChangeItemContent{
-    (id: number, content: string): void;
+    (taskId: number, status: boolean, description: string): void;
 }
 
 interface ItemCompInterface{

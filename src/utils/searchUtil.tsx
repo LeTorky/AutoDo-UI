@@ -24,7 +24,7 @@ class SearchUtil{
         const toDoItems: ItemInterface[] = [];
         word = word.toLowerCase();
         this.allItems.forEach(item => {
-            const itemWord = item.content.toLowerCase()
+            const itemWord = item.description.toLowerCase()
             if(itemWord.includes(word))
                 item.status ? completedItems.push(item) :
                 toDoItems.push(item)

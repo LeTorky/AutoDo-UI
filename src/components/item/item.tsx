@@ -3,7 +3,7 @@ import { ItemCompInterface } from "./interface";
 import "./item.css"
 
 const Item: React.FC<ItemCompInterface> = ({item, changeItemContent, changeItemStatus, deleteItem}) => {
-    const [ itemContentState, setitemContentState] = useState(item.content);
+    const [ itemContentState, setitemContentState] = useState(item.description);
     const [ itemClass, setItemClass ] = useState<{checkBox:string, itemContent:string}>();
 
     const itemContentChangeViewHandler = useCallback((event: React.ChangeEvent<HTMLInputElement>)=>{
@@ -12,7 +12,7 @@ const Item: React.FC<ItemCompInterface> = ({item, changeItemContent, changeItemS
 
     const itemContentChangeHandler = useCallback((event: React.KeyboardEvent<HTMLInputElement>)=>{
         if(event.key === 'Enter'){
-            changeItemContent(item.id, event.currentTarget?.value);
+            changeItemContent(item.taskId, item.status, event.currentTarget?.value);
             event.currentTarget?.blur();
         }
     },[item, changeItemContent]);
@@ -25,10 +25,10 @@ const Item: React.FC<ItemCompInterface> = ({item, changeItemContent, changeItemS
     }, [item]);
 
     return (
-        <li className="item" id={`item-${item.id}`}>
-            <span className={itemClass?.checkBox} onClick={()=>{changeItemStatus(item.id, !item.status)}}/>
+        <li className="item" id={`item-${item.taskId}`}>
+            <span className={itemClass?.checkBox} onClick={()=>{changeItemStatus(item.taskId, !item.status, item.description)}}/>
             <input onChange={itemContentChangeViewHandler} onKeyDown={itemContentChangeHandler} type="text" className={itemClass?.itemContent} value={itemContentState}/>
-            <span className="deleteItem" onClick={()=>{deleteItem(item.id)}}/>
+            <span className="deleteItem" onClick={()=>{deleteItem(item.taskId)}}/>
         </li>
     )
 }

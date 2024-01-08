@@ -1,5 +1,6 @@
 interface addItemInterface{
-    (content: string): void
+    (description
+        : string): void
 }
 
 interface addItemComp{
